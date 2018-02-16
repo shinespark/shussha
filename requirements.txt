@@ -1,0 +1,17 @@
+certifi==2018.1.18
+chardet==3.0.4
+configparser==3.5.0
+enum34==1.1.6
+flake8==3.4.1
+idna==2.6
+libusb1==1.6.4
+mccabe==0.6.1
+ndeflib==0.2.0
+nfcpy==0.13.2
+pycodestyle==2.3.1
+pyDes==2.0.1
+pyflakes==1.5.0
+pyserial==3.4
+PyYAML==3.12
+requests==2.18.4
+urllib3==1.22
