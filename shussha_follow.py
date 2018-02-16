@@ -8,7 +8,7 @@ import time
 import urllib
 import urllib2
 import yaml
-import follow
+from follow import follow
 from datetime import datetime
 
 log_format = '%(asctime)s- %(name)s - %(levelname)s - %(message)s'
