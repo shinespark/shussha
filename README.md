@@ -1,4 +1,4 @@
-# shussha
+# shussha_follow
 
 ## これは何？
 
