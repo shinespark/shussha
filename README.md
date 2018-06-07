@@ -3,7 +3,7 @@
 ## これは何？
 
 NFCカードリーダを利用して、 follow.jp に打刻するアプリケーションです。  
-ついでにSlackにも発言します。(あとで削除予定)
+打刻したらIFTTT経由でプッシュ通知も可能です。
 
 nfcpyがPython2.xのみ対応の為、Python2実行環境が必要です。
 
@@ -32,11 +32,13 @@ $ vi conf.yml
 <ID>: # NFCカードのID
   description: ''
   time_period: 15 # 発言するSlackチャンネルを切り替える時間(e.g. 15時)
-  token: 'xoxp-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' # Slack Legacy token
-  text: 'この内容をポストするよ' # 発言するテキスト
-  company_id: 'follow.jpの企業ID'
-  login_id: 'follow.jpのログインID'
-  password: 'follow.jpのパスワード'
+  follow:
+    company_id: 'follow.jpの企業ID'
+    login_id:   'follow.jpのログインID'
+    password:   'follow.jpのパスワード'
+  ifttt: # Optional
+    trigger: 'WebHookのトリガーイベント名'
+    key:     'WebHookのキー'
 ```
 
 ## NFC IDの確認
@@ -46,13 +48,9 @@ $ python shussha_follow.py
 $ tail -f shussha_follow.log
 ```
 
-## Slack Legacy token の発行
-
-[Legacy tokens | Slack](https://api.slack.com/custom-integrations/legacy-tokens)
-
 ## 出勤 / 退勤切り替えについて
 
-`time_period` の時刻以前は出勤, 時刻以降は 退勤扱いになる仕様になっています。
+`time_period` の時刻以前は出勤, 時刻以降は退勤扱いになる仕様になっています。
 
 
 ## 自動起動
