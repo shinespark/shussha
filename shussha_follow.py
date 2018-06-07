@@ -8,6 +8,7 @@ import time
 import urllib
 import urllib2
 import yaml
+from ifttt import ifttt
 from follow import follow
 from datetime import datetime
 
@@ -15,7 +16,6 @@ log_format = '%(asctime)s- %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(filename='shussha_follow.log', level=logging.DEBUG, format=log_format)
 dirpath = os.path.abspath(os.path.dirname(__file__))
 conf = yaml.load(open(dirpath + '/conf.yml').read())
-d_conf = yaml.load(open(dirpath + '/debug.yml').read())
 
 
 def startup(targets):
@@ -48,51 +48,34 @@ def connected(tag):
     if ic_id not in conf:
         text = 'Not registerd NFC ID: %s' % ic_id
         logging.info(text)
-
-        params = urllib.urlencode({
-            'token': d_conf['debug']['token'],
-            'channel': d_conf['debug']['channel'].encode('utf-8'),
-            'icon_url': d_conf['debug']['icon_url'],
-            'username': d_conf['debug']['username'],
-            'text': text,
-        })
-        post_slack(params)
         time.sleep(5)
         return
 
     current_hour = int(datetime.now().strftime("%H"))
     if current_hour < conf[ic_id]['time_period']:
-        channel = '#出勤連絡'
         dakoku_type = 0
+        value1 = '出勤'
     else:
-        channel = '#退勤連絡'
         dakoku_type = 1
+        value1 = '退勤'
 
-    f = follow(conf[ic_id]['company_id'], conf[ic_id]['login_id'], conf[ic_id]['password'])
+    # POST follow
+    f = follow(conf[ic_id]['follow']['company_id'], conf[ic_id]['follow']['login_id'], conf[ic_id]['follow']['password'])
     f.login()
     res = f.dakoku(dakoku_type)
     logging.info('%r' % res)
 
-    params = urllib.urlencode({
-        'token': conf[ic_id]['token'],
-        'channel': channel,
-        'text': conf[ic_id]['text'],
-        'as_user': 'true',
-    })
-    post_slack(params)
+    # POST IFTTT
+    if 'ifttt' in conf[ic_id]:
+        i = follow(conf[ic_id]['ifttt']['trigger'], conf[ic_id]['ifttt']['key'])
+        res = i.post(value1)
+        logging.info('%r' % res)
+
     time.sleep(5)
 
 
 def released(tag):
     print("released:")
-
-
-def post_slack(params):
-    url = 'https://slack.com/api/chat.postMessage'
-    req = urllib2.Request(url, params, {'Content-type': 'application/x-www-form-urlencoded'})
-    res = urllib2.urlopen(req)
-    logging.info('%r' % res.read())
-    logging.info('posted.')
 
 
 if __name__ == '__main__':
