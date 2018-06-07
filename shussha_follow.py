@@ -5,8 +5,6 @@ import nfc
 import nfc.ndef
 import os
 import time
-import urllib
-import urllib2
 import yaml
 from ifttt import ifttt
 from follow import follow
