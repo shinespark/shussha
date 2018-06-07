@@ -58,6 +58,7 @@ $ tail -f shussha_follow.log
 ## 自動起動
 
 shussha_follow.service を利用してください。
+Raspberry Pi用に書いてあるので、パスは適宜変更してください。
 
 ```
 $ sudo cp shussha_follow.service /etc/systemd/system/
