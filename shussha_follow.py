@@ -66,7 +66,7 @@ def connected(tag):
     logging.info('%r' % res)
 
     # POST IFTTT
-    if 'ifttt' in conf[ic_id]:
+    if res.status_code == '200' and 'ifttt' in conf[ic_id]:
         i = ifttt(conf[ic_id]['ifttt']['trigger'], conf[ic_id]['ifttt']['key'])
         res = i.post(value1)
         logging.info('%r' % res)
