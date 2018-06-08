@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import logging
 import nfc
-import nfc.ndef
 import os
 import time
 import yaml
@@ -36,18 +35,18 @@ def connected(tag):
         if ic_id is None:
             logging.warn('Couldn\'t get sensf_res or sdd_res id.')
             time.sleep(5)
-            return
+            return True
         logging.info('NFC ID: %s' % ic_id)
     except:
         logging.warn('Exception: While parsing ID.')
         time.sleep(5)
-        return
+        return False
 
     if ic_id not in conf:
         text = 'Not registerd NFC ID: %s' % ic_id
         logging.info(text)
         time.sleep(5)
-        return
+        return True
 
     current_hour = int(datetime.now().strftime("%H"))
     if current_hour < conf[ic_id]['time_period']:
@@ -70,6 +69,7 @@ def connected(tag):
         logging.info('%r' % res)
 
     time.sleep(5)
+    return True
 
 
 def released(tag):

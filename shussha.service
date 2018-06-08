@@ -1,0 +1,14 @@
+[Unit]
+Description=shussha
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/shussha
+ExecStart=/home/pi/.pyenv/versions/2.7.14/bin/python /home/pi/shussha/shussha.py
+TimeoutStopSec=5
+StandardOutput=null
+User=pi
+Group=pi
+
+[Install]
+WantedBy = multi-user.target
