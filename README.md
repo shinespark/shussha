@@ -1,4 +1,4 @@
-# shussha_follow
+# shussha
 
 ## これは何？
 
@@ -19,7 +19,7 @@ $ pip install -r requirements.txt
 起動
 
 ```
-$ python shussha_follow.py
+$ python shussha.py
 ```
 
 conf設定
@@ -44,8 +44,8 @@ $ vi conf.yml
 ## NFC IDの確認
 
 ```
-$ python shussha_follow.py
-$ tail -f shussha_follow.log
+$ python shussha.py
+$ tail -f shussha.log
 ```
 
 ## 出勤 / 退勤切り替えについて
@@ -55,18 +55,18 @@ $ tail -f shussha_follow.log
 
 ## 自動起動
 
-shussha_follow.service を利用してください。
+shussha.service を利用してください。
 Raspberry Pi用に書いてあるので、パスは適宜変更してください。
 
 ```
-$ sudo cp shussha_follow.service /etc/systemd/system/
+$ sudo cp shussha.service /etc/systemd/system/
 
 # 自動起動登録
-$ sudo systemctl enable shussha_follow.service
+$ sudo systemctl enable shussha.service
 
 # 起動
-$ sudo systemctl start shussha_follow.service
+$ sudo systemctl start shussha.service
 
 # 終了
-$ sudo systemctl stop shussha_follow.service
+$ sudo systemctl stop shussha.service
 ```
