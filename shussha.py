@@ -10,7 +10,7 @@ from follow import follow
 from datetime import datetime
 
 log_format = '%(asctime)s- %(name)s - %(levelname)s - %(message)s'
-logging.basicConfig(filename='shussha_follow.log', level=logging.DEBUG, format=log_format)
+logging.basicConfig(filename='shussha.log', level=logging.DEBUG, format=log_format)
 dirpath = os.path.abspath(os.path.dirname(__file__))
 conf = yaml.load(open(dirpath + '/conf.yml').read())
 
