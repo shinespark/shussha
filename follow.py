@@ -40,5 +40,9 @@ class follow(object):
             'syainCode': self.login_id,
             'SCID': 'STC_M'
         }
-        r = requests.post(SERVLET_URL, params=dakoku_data, headers=self.headers, cookies=self.cookies)
-        return r.text
+        res = requests.post(SERVLET_URL, params=dakoku_data, headers=self.headers, cookies=self.cookies)
+
+        if res.status_code == '200':
+            return res.text
+        else:
+            return False
