@@ -42,7 +42,7 @@ class follow(object):
         }
         res = requests.post(SERVLET_URL, params=dakoku_data, headers=self.headers, cookies=self.cookies)
 
-        if res.status_code == '200':
+        if res.status_code == 200:
             return res.text
         else:
             return False
